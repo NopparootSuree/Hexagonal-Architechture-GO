@@ -1,0 +1,7 @@
+app:
+  port: 4000
+
+db:
+  username: "nopparoot"
+  password: "passw0rd"
+  database: "company"
