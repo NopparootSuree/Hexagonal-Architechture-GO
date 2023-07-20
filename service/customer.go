@@ -7,5 +7,5 @@ type CustomerResponse struct {
 
 type CustomerService interface {
 	GetCustomers() ([]CustomerResponse, error)
-	GetCustomerByName(string) (*CustomerResponse, error)
+	GetCustomerByID(string) (*CustomerResponse, error)
 }
