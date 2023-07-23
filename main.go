@@ -27,10 +27,17 @@ func main() {
 	customerService := service.NewCustomerService(customerRepositoryDB)
 	customerHandler := handler.NewCustomerHandler(customerService)
 
+	accountRepositoryDB := repository.NewAccountRepositoryDB(db)
+	accountService := service.NewAccountService(accountRepositoryDB)
+	accountHandler := handler.NewAccountHandler(accountService)
+
 	router := mux.NewRouter()
 
 	router.HandleFunc("/customer", customerHandler.GetCustomers).Methods(http.MethodGet)
 	router.HandleFunc("/customer/{id}", customerHandler.GetCustomer).Methods(http.MethodGet)
+
+	router.HandleFunc("/customer/{id}/accounts", accountHandler.GetAccounts).Methods(http.MethodGet)
+	router.HandleFunc("/customer/{id}/accounts", accountHandler.NewAccount).Methods(http.MethodPost)
 
 	logs.Info("Server start in port : " + viper.GetString("app.port"))
 	http.ListenAndServe(fmt.Sprintf(":%v", viper.GetInt("app.port")), router)
